@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace unityroom.Api.Internals
 {
     /// <summary>
@@ -15,11 +13,11 @@ namespace unityroom.Api.Internals
             _intervalSeconds = intervalSeconds;
         }
 
-        internal bool IsBusy => _lastSentTime + _intervalSeconds > Time.time;
+        internal bool IsBusy(float now) => _lastSentTime + _intervalSeconds > now;
 
-        internal void Reset()
+        internal void Reset(float now)
         {
-            _lastSentTime = Time.time;
+            _lastSentTime = now;
         }
     }
 }
