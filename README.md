@@ -1,19 +1,13 @@
-## インポート方法
-
-
-
-
-
-
 # Unityroom Client Library
 
 unityroomのAPIを活用するためのライブラリです。
 
-初心者の方でも手順通り導入すれば簡単に使えることを目的にしています。
+初心者の方でも手順通り導入すれば簡単に使えることを目的にしています。  
+上級者の方は自由に改変していただいたり、このライブラリを使わず自前実装していただいても大丈夫です。
 
 ## できること
 
-* スコアランキング送信APIの利用
+* スコアランキング機能のスコア送信API呼び出し
 
 # 動作環境
 
@@ -21,51 +15,56 @@ unityroomのAPIを活用するためのライブラリです。
 
 # 導入方法
 
-## PackageManagerを使う場合
+## PackageManagerを使う方法(おすすめ)
 
 > Windowsの場合はシステムに [Gitクライアント](https://git-scm.com/) がインストールされている必要があります。  
 > Macは最初からインストールされているため不要です。
 
+> Git怖い触りたくない！!って人は次のUnityPackageを使う方法をご利用ください。
+
 1. Window -> Package Manager
-    * 画像
+    * <img width="386" alt="image" src="https://github.com/naichilab/unityroom-client-library/assets/7110482/7f1745d3-6014-47bc-b59b-f758c7710227">
 1. "+" -> Add package from git URL...
-    * 画像
+    * <img width="228" alt="image" src="https://github.com/naichilab/unityroom-client-library/assets/7110482/7c83f098-7df6-482e-b64d-404017528170">
 1. 以下のURLを入力し、Addを押す
     * https://github.com/naichilab/unityroom-client-library.git?path=Assets/unityroom
 2. Unityroom Client Library が導入済みとなれば成功
-    * 画像
+    * <img width="917" alt="image" src="https://github.com/naichilab/unityroom-client-library/assets/7110482/32f0c8cb-32bd-4c63-8add-c873056bff11">
 
-## UnityPackageを使う場合
+## UnityPackageを使う方法
 
-1. こちらからダウンロード
-    * 画像
+1. [Releases](https://github.com/naichilab/unityroom-client-library/releases)のページからunitypackageをダウンロード
 2. ダウンロードしたファイルを実行してプロジェクトにインポート
-    * 画像
+    * <img width="419" alt="image" src="https://github.com/naichilab/unityroom-client-library/assets/7110482/c8dbd566-95e8-4ff8-821c-1b7be2e0a1b5">
 
 # 使い方
 
 ## 準備
 
-1. Projectビューの Packages -> Unityroom Client Library -> Api -> UnityroomApiClient (プレハブ) をシーンに配置する
-    * 画像
-1. 配置した UnityroomApiClient のインスペクタにて `Hmac Key` を入力する。
-    * 画像
+1. unityroomのゲーム設定にて、HMAC認証用キーをコピーしておく
+    *  <img width="907" alt="スクリーンショット 2023-05-16 1 52 19" src="https://github.com/naichilab/unityroom-client-library/assets/7110482/8be131d7-d34f-4f07-bd6e-c74a7795e7c2">
+3. Projectビューの Packages(またはAssets) -> Unityroom Client Library -> Api -> UnityroomApiClient (青いプレハブアイコン) をシーンにドラッグ＆ドロップで配置する
+    * <img width="385" alt="スクリーンショット 2023-05-16 1 48 44" src="https://github.com/naichilab/unityroom-client-library/assets/7110482/f4eab764-110a-467b-a5ba-f249af1ae62d">
+4. 配置した UnityroomApiClient のインスペクタにて `Hmac Key` に先ほどコピーして `HMAC認証用キー` を入力する。
+    * <img width="903" alt="スクリーンショット 2023-05-16 1 50 31" src="https://github.com/naichilab/unityroom-client-library/assets/7110482/2d633cbb-7f68-4176-b8eb-47726b667095">
+
+準備は以上です。
 
 ## スコア送信方法
 
-* 任意の場所で下記を呼び出す
+任意の場所で下記を呼び出します。
 
 ```.cs
 // ボードNo1にスコア123.45fを送信する。
 UnityroomApiClient.Instance.SendScore(1, 123.45f, ScoreboardWriteMode.Always);
 ```
 
-3つ目の引数は３種類あります。
-unityroomで作成したスコアボードと同じ設定を選んでください。
-
-* HighScoreDesc：ハイスコア（降順）として記録する
-* HighScoreAsc：ハイスコア（昇順）として記録する
-* Always：ハイスコア（常に記録）として記録する
+* 1つ目の引数はボードNoです。unityroomの設定画面でスコアボード一覧画面で確認できます。
+* 2つ目の引数はスコア(float)です。
+* 3つ目の引数はスコアの記録ルールで３種類あります。unityroomで作成したスコアボードと同じ設定を選んでください。
+    * HighScoreDesc：ハイスコア（降順）として記録する
+    * HighScoreAsc：ハイスコア（昇順）として記録する
+    * Always：ハイスコア（常に記録）として記録する
 
 # ライセンス
 
