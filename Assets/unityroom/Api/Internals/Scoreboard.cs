@@ -10,12 +10,12 @@ namespace unityroom.Api.Internals
         /// <summary>
         /// サーバーにスコアを送信する最短の間隔(秒)
         /// </summary>
-        private const int IntervalSeconds = 5;
+        private const int IntervalSeconds = 6;
         /// <summary>
         /// サーバーにスコア送信失敗した場合の最大リトライ回数
         /// </summary>
-        private const int MaxRetryCount = 3;
-        private readonly RetryCounter _retryCounter = new(MaxRetryCount);
+        private const int MaxTryCount = 2;
+        private readonly RetryCounter _retryCounter = new(MaxTryCount);
         private readonly ScoreHolder _scoreHolder = new();
         private readonly TimeKeeper _timeKeeper = new(IntervalSeconds);
         private int _boardNo;
@@ -58,6 +58,7 @@ namespace unityroom.Api.Internals
             );
             using var request = CreateRequest(score);
             yield return request.SendWebRequest();
+            _retryCounter.Increment();
 
             //結果をログに表示
             if (request.result == UnityWebRequest.Result.Success)
@@ -74,19 +75,19 @@ namespace unityroom.Api.Internals
                 Debug.Log(
                     $"[unityroom] スコア送信失敗 BoardNo={_boardNo} Score={score} Response={request.responseCode} Data={request.downloadHandler.text} リトライ残={_retryCounter.RemainCount} "
                 );
-                _retryCounter.Increment();
-                if (!_retryCounter.CanRetry)
-                {
-                    _scoreHolder.ResetChangedFlag();
-                    _retryCounter.Reset();
-                }
+            }
+
+            if (!_retryCounter.CanRetry)
+            {
+                _scoreHolder.ResetChangedFlag();
+                _retryCounter.Reset();
             }
         }
 
         private UnityWebRequest CreateRequest(float score)
         {
             // スコア送信APIエンドポイント
-            var path = "https://38915.play.unityroom.com" + $"/gameplay_api/v1/scoreboards/{_boardNo}/scores";
+            var path = $"/gameplay_api/v1/scoreboards/{_boardNo}/scores";
 
             // 現在のUNIX TIMEを取得
             var unixTime = UnixTime.GetCurrentUnixTime()
