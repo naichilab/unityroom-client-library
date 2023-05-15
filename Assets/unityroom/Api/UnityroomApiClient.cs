@@ -28,7 +28,7 @@ namespace unityroom.Api
             {
                 if (_instance != null) return _instance;
                 _instance = FindAnyObjectByType<UnityroomApiClient>();
-                if (_instance == null) { Debug.LogError($"[unityroom] シーンにUnityroomClientのPrefabを配置してください。"); }
+                if (_instance == null) { Debug.LogError($"[unityroom] シーンにUnityroomApiClientのPrefabを配置してください。"); }
 
                 return _instance;
             }

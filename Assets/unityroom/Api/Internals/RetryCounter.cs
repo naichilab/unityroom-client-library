@@ -13,6 +13,7 @@ namespace unityroom.Api.Internals
 
         internal bool CanRetry => Count < _maxRetryCount;
         internal int Count { get; private set; } = 0;
+        internal int RemainCount => _maxRetryCount - Count;
 
         internal void Reset()
         {

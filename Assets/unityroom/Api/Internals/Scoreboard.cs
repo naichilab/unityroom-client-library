@@ -45,35 +45,38 @@ namespace unityroom.Api.Internals
         {
             _timeKeeper.Reset(Time.time);
             var score = _scoreHolder.Score;
+            if (Util.IsEditor())
+            {
+                Debug.Log($"[unityroom] スコア送信 BoardNo={_boardNo} Score={score} (unityroomにゲームをアップロードすると実際に送信されます)");
+                _retryCounter.Reset();
+                _scoreHolder.ResetChangedFlag();
+                yield break;
+            }
+
             Debug.Log(
                 $"[unityroom] スコア送信開始 BoardNo={_boardNo} Score={score} {(_retryCounter.Count > 0 ? $"リトライ{_retryCounter.Count}回目" : "")}"
             );
-
-            // if (Util.IsEditor())
-            // {
-            //     Debug.Log($"スコア送信 boardNo={boardNo} score={score} (unityroomにゲームをアップロードすると実際に送信されます)");
-            //     yield break;
-            // }
             using var request = CreateRequest(score);
             yield return request.SendWebRequest();
 
             //結果をログに表示
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log($"[unityroom] {request.responseCode}|{request.downloadHandler.text}");
-                Debug.Log($"[unityroom] スコア送信完了 BoardNo={_boardNo} Score={score}");
+                Debug.Log(
+                    $"[unityroom] スコア送信成功 BoardNo={_boardNo} Score={score} Response={request.responseCode} Data={request.downloadHandler.text} "
+                );
                 _retryCounter.Reset();
                 _scoreHolder.ResetChangedFlag();
             }
             else
             {
                 //失敗
-                Debug.Log($"[unityroom] {request.responseCode}|{request.downloadHandler.text}");
-                Debug.Log($"[unityroom] スコア送信失敗 BoardNo={_boardNo} Score={score}");
+                Debug.Log(
+                    $"[unityroom] スコア送信失敗 BoardNo={_boardNo} Score={score} Response={request.responseCode} Data={request.downloadHandler.text} リトライ残={_retryCounter.RemainCount} "
+                );
                 _retryCounter.Increment();
                 if (!_retryCounter.CanRetry)
                 {
-                    Debug.Log($"[unityroom] 送信を諦めます BoardNo={_boardNo} Score={score}");
                     _scoreHolder.ResetChangedFlag();
                     _retryCounter.Reset();
                 }
