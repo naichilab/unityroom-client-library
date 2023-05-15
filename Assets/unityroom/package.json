@@ -1,0 +1,13 @@
+{
+  "name": "com.unityroom.client",
+  "version": "0.9.0",
+  "displayName": "Unityroom Client Library",
+  "unity": "2020.3",
+  "description": "Unityroom API Client Library.",
+  "license": "MIT",
+  "author": {
+    "name": "naichilab",
+    "email": "naichilab@live.jp",
+    "url": "https://github.com/naichilab"
+  }
+}
