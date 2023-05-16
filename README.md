@@ -71,7 +71,7 @@ UnityroomApiClient.Instance.SendScore(1, 123.45f, ScoreboardWriteMode.Always);
     * HighScoreAsc：ハイスコア（昇順）として記録する
     * Always：ハイスコア（常に記録）として記録する
 
-スコアはゲームオーバー時に自動送信したり、ボタンを押しときなど任意のタイミングで送信したりしてください。
+スコアはゲームオーバー時に自動送信したり、ボタンを押したときなど任意のタイミングで送信したりしてください。
 
 # ライセンス
 
