@@ -1,6 +1,6 @@
 {
   "name": "com.unityroom.client",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "displayName": "Unityroom Client Library",
   "unity": "2020.3",
   "description": "Unityroom API Client Library.",
