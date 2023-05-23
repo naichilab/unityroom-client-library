@@ -33,6 +33,7 @@ unityroomのAPIを活用するためのライブラリです。
 2. Unityroom Client Library が導入済みとなれば成功
     * <img width="917" alt="image" src="https://github.com/naichilab/unityroom-client-library/assets/7110482/32f0c8cb-32bd-4c63-8add-c873056bff11">
 
+
 ### UnityPackageを使う方法
 
 1. [Releases](https://github.com/naichilab/unityroom-client-library/releases)のページからunitypackageをダウンロード
@@ -58,6 +59,10 @@ unityroomのAPIを活用するためのライブラリです。
 ## スコア送信API呼び出し方法
 
 任意の場所で下記を呼び出します。
+
+> 補足：もしエラーとなる場合  
+> PackageManager経由で導入した場合、UnityroomApiClientが見つからずスクリプトのコンパイルエラーとなることがあるようです。  
+> もしそうなった場合はUnityを一度再起動すると改善されます。
 
 ```.cs
 // ボードNo1にスコア123.45fを送信する。
