@@ -15,9 +15,9 @@ namespace unityroom.Api.Internals
         /// サーバーにスコア送信失敗した場合の最大リトライ回数
         /// </summary>
         private const int MaxTryCount = 2;
-        private readonly RetryCounter _retryCounter = new(MaxTryCount);
-        private readonly ScoreHolder _scoreHolder = new();
-        private readonly TimeKeeper _timeKeeper = new(IntervalSeconds);
+        private readonly RetryCounter _retryCounter = new RetryCounter(MaxTryCount);
+        private readonly ScoreHolder _scoreHolder = new ScoreHolder();
+        private readonly TimeKeeper _timeKeeper = new TimeKeeper(IntervalSeconds);
         private int _boardNo;
         private string _hmacKey;
 

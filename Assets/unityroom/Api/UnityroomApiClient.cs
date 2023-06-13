@@ -18,7 +18,7 @@ namespace unityroom.Api
         /// <summary>
         /// スコアボードAPIクライアント
         /// </summary>
-        private readonly Dictionary<int, Scoreboard> _scoreboards = new();
+        private readonly Dictionary<int, Scoreboard> _scoreboards = new Dictionary<int, Scoreboard>();
         /// <summary>
         /// シングルトンインスタンスを取得
         /// </summary>
