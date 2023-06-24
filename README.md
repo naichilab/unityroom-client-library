@@ -60,9 +60,11 @@ MITライセンスですので上級者の方は自由に改変していただ�
 
 ## ランキングスコア送信方法
 
-任意の場所で下記を呼び出します。
+任意の場所で下記を呼び出します。  
 
 ```.cs
+// C#スクリプトの冒頭に `using unityroom.Api;` を追加してください。
+
 // ボードNo1にスコア123.45fを送信する。
 UnityroomApiClient.Instance.SendScore(1, 123.45f, ScoreboardWriteMode.Always);
 ```
