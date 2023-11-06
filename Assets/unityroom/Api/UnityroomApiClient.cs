@@ -36,6 +36,16 @@ namespace unityroom.Api
 
         private void Awake()
         {
+            // 2つ目以降のClientは破棄する
+            if ((UnityroomApiClient)Instance != this)
+            {
+                Debug.LogWarning($"[unityroom] 複数のUnityroomApiClientが見つかりました。重複したインスタンスを破棄します。", gameObject);
+                Destroy(gameObject);
+            }
+            
+            // シーンを切り替えても破棄されないようにする
+            DontDestroyOnLoad(gameObject);
+            
             if (string.IsNullOrEmpty(HmacKey))
             {
                 Debug.LogError($"[unityroom] インスペクターにてHMAC認証用キーをセットしてください。", gameObject);
