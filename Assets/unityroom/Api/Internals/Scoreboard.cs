@@ -23,7 +23,7 @@ namespace unityroom.Api.Internals
 
         private void Update()
         {
-            if (_scoreHolder.ScoreChanged && !_timeKeeper.IsBusy(Time.time)) { StartCoroutine(SendScoreEnumerator()); }
+            if (_scoreHolder.ScoreChanged && !_timeKeeper.IsBusy()) { StartCoroutine(SendScoreEnumerator()); }
         }
 
         internal void Initialize(int boardNo, string hmacKey)
@@ -43,7 +43,7 @@ namespace unityroom.Api.Internals
 
         private IEnumerator SendScoreEnumerator()
         {
-            _timeKeeper.Reset(Time.time);
+            _timeKeeper.Reset();
             var score = _scoreHolder.Score;
             if (Util.IsEditor())
             {

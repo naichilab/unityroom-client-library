@@ -13,8 +13,7 @@ namespace Editor.unityroom.Tests
             timeKeeper.Reset(110);
             Assert.True(timeKeeper.IsBusy(111));
             Assert.True(timeKeeper.IsBusy(112));
-            Assert.True(timeKeeper.IsBusy(112.9f));
-            Assert.False(timeKeeper.IsBusy(113.1f));
+            Assert.False(timeKeeper.IsBusy(113));
             Assert.False(timeKeeper.IsBusy(114));
         }
     }

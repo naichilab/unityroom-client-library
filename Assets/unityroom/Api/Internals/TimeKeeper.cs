@@ -6,16 +6,23 @@ namespace unityroom.Api.Internals
     internal class TimeKeeper
     {
         private readonly int _intervalSeconds;
-        private float _lastSentTime = float.MinValue;
+        private int _lastSentTime = int.MinValue;
 
         internal TimeKeeper(int intervalSeconds)
         {
             _intervalSeconds = intervalSeconds;
         }
 
-        internal bool IsBusy(float now) => _lastSentTime + _intervalSeconds > now;
+        internal bool IsBusy() => IsBusy(UnixTime.GetCurrentUnixTime());
 
-        internal void Reset(float now)
+        internal bool IsBusy(int now)
+        {
+            return _lastSentTime + _intervalSeconds > now;
+        }
+
+        internal void Reset() => Reset(UnixTime.GetCurrentUnixTime());
+
+        internal void Reset(int now)
         {
             _lastSentTime = now;
         }
